@@ -2,6 +2,7 @@ import copy
 import os
 from datetime import datetime
 import yaml
+import shutil
 
 from ikomia import core, dataprocess
 from ikomia.core.task import TaskParam
@@ -114,7 +115,7 @@ class TrainDeimV2(dnntrain.TrainProcess):
                 os.path.join(self.cfg_folder, "deim_dfine"),
                 os.path.join(self.cfg_folder, "deim_rtdetrv2")
             ]
-            
+
             for root in search_roots:
                 candidate = os.path.join(root, config_filename)
                 if os.path.isfile(candidate):
@@ -187,7 +188,8 @@ class TrainDeimV2(dnntrain.TrainProcess):
 
         cfg.yaml_cfg['eval_spatial_size'] = size_pair
 
-        train_transforms = train_dataset_cfg.get('transforms', {}).get('ops', []) if isinstance(train_dataset_cfg, dict) else []
+        train_transforms = train_dataset_cfg.get(
+            'transforms', {}).get('ops', []) if isinstance(train_dataset_cfg, dict) else []
         for op in train_transforms:
             if isinstance(op, dict):
                 if op.get('type') == 'Resize' and 'size' in op:
@@ -195,7 +197,8 @@ class TrainDeimV2(dnntrain.TrainProcess):
                 if op.get('type') == 'Mosaic' and 'output_size' in op:
                     op['output_size'] = max(1, size // 2)
 
-        val_transforms = val_dataset_cfg.get('transforms', {}).get('ops', []) if isinstance(val_dataset_cfg, dict) else []
+        val_transforms = val_dataset_cfg.get(
+            'transforms', {}).get('ops', []) if isinstance(val_dataset_cfg, dict) else []
         for op in val_transforms:
             if isinstance(op, dict) and op.get('type') == 'Resize' and 'size' in op:
                 op['size'] = size_pair
@@ -207,6 +210,9 @@ class TrainDeimV2(dnntrain.TrainProcess):
     def _save_training_artifacts(self, cfg, output_folder, dataset_info):
         if not self.experiment_name:
             return
+
+        # copy configs folder to output folder self.cfg_folder
+        shutil.copytree(self.cfg_folder, os.path.join(output_folder, 'configs'))
 
         training_config = os.path.join(
             output_folder, f'config_{self.experiment_name}.yaml')
@@ -221,6 +227,13 @@ class TrainDeimV2(dnntrain.TrainProcess):
         cfg_to_save['num_classes_finetuned'] = dataset_info.get('nc')
         cfg_to_save['class_names'] = dataset_info.get('names')
         cfg_to_save['model_name'] = self.get_param_object().cfg.get('model_name')
+        cfg_to_save['__include__'] = [
+            'configs/dataset/coco_detection.yml',
+            'configs/runtime.yml',
+            'configs/base/dataloader.yml',
+            'configs/base/optimizer.yml',
+            'configs/base/deimv2.yml',
+        ]
 
         with open(training_config, 'w', encoding='utf-8') as file:
             yaml.safe_dump(cfg_to_save, file, sort_keys=False, allow_unicode=True)

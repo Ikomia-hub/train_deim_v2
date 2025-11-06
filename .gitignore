@@ -4,7 +4,7 @@ ckpts/
 weights/
 testenv/
 runs/
-datasets/
+dataset/
 
 backup
 

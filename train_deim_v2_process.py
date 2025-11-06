@@ -333,7 +333,7 @@ class TrainDeimV2Factory(dataprocess.CTaskFactory):  # type: ignore[attr-defined
         self.info.documentation_link = "https://arxiv.org/abs/2509.20787"
 
         # Code source repository
-        self.info.repository = "https://github.com/Ikomia-hub/infer_deim_v2"
+        self.info.repository = "https://github.com/Ikomia-hub/train_deim_v2"
         self.info.original_repository = "https://github.com/Intellindust-AI-Lab/DEIMv2"
 
         # Keywords used for search

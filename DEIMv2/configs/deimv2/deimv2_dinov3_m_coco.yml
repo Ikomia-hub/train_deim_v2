@@ -1,22 +1,12 @@
-# __include__: [
-#   '../dataset/coco_detection.yml',
-#   '../runtime.yml',
-#   '../base/dataloader.yml',
-#   '../base/optimizer.yml',
-#   '../base/deimv2.yml',
-# ]
-
-# output_dir: ./outputs/deimv2_dinov3_m_coco
-
 __include__: [
-  '..\dataset\coco_detection.yml',
-  '..\runtime.yml',
-  '..\base\dataloader.yml',
-  '..\base\optimizer.yml',
-  '..\base\deimv2.yml',
+  '../dataset/coco_detection.yml',
+  '../runtime.yml',
+  '../base/dataloader.yml',
+  '../base/optimizer.yml',
+  '../base/deimv2.yml',
 ]
 
-output_dir: .\outputs\deimv2_dinov3_m_coco
+output_dir: ./outputs/deimv2_dinov3_m_coco
 
 DEIM:
   backbone: DINOv3STAs

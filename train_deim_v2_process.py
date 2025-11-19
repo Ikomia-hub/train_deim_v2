@@ -328,7 +328,7 @@ class TrainDeimV2Factory(dataprocess.CTaskFactory):  # type: ignore[attr-defined
         # relative path -> as displayed in Ikomia Studio algorithm tree
         self.info.path = "Plugins/Python/Detection"
         self.info.version = "1.0.0"
-        # self.info.icon_path = "your path to a specific icon"
+        self.info.icon_path = "images/icon.png"
         self.info.authors = "Huang, Shihua and Hou, Yongjie and Liu, Longfei and Yu, " \
                             "Xuanlong and Shen, Xi"
         self.info.article = "Real-Time Object Detection Meets DINOv3"

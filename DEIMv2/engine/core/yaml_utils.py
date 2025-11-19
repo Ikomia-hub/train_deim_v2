@@ -21,9 +21,13 @@ __all__ = [
 INCLUDE_KEY = '__include__'
 
 
-def load_config(file_path, cfg=dict()):
+def load_config(file_path, cfg=None):
     """load config
     """
+    # Fix for GLOBAL_CONFIG pollution when switching between model configurations
+    if cfg is None:
+        cfg = {}
+
     _, ext = os.path.splitext(file_path)
     assert ext in ['.yml', '.yaml'], "only support yaml files"
 
@@ -91,8 +95,7 @@ def parse_cli(nargs: List[str]) -> Dict:
     return cfg
 
 
-
-def merge_config(cfg, another_cfg=GLOBAL_CONFIG, inplace: bool=False, overwrite: bool=False):
+def merge_config(cfg, another_cfg=GLOBAL_CONFIG, inplace: bool = False, overwrite: bool = False):
     """
     Merge another_cfg into cfg, return the merged config
 

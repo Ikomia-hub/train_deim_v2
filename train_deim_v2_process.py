@@ -340,7 +340,7 @@ class TrainDeimV2Factory(dataprocess.CTaskFactory):  # type: ignore[attr-defined
         self.info.min_ikomia_version = "0.15.0"
 
         # Python compatibility
-        self.info.min_python_version = "3.9.0"
+        self.info.min_python_version = "3.10.0"
 
         # URL of documentation
         self.info.documentation_link = "https://arxiv.org/abs/2509.20787"

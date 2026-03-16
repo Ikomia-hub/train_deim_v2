@@ -23,6 +23,10 @@ on:
         description: 'Send a Discord webhook on failure'
         type: boolean
         default: false
+      push_on_success:
+        description: 'Push to Ikomia HUB on success'
+        type: boolean
+        default: false
       
 permissions:
   contents: read
@@ -97,6 +101,9 @@ jobs:
             if [ "${{ github.event.inputs.send_webhook_on_failure }}" = "false" ]; then
               RUN_WEBHOOK_ON_FAILURE="False"
             fi
+            if [ "${{ github.event.inputs.push_on_success }}" = "true" ]; then
+              RUN_PUSH_ON_SUCCESS="True"
+            fi
           fi
 
           echo "run_url=$RUN_URL" >> "$GITHUB_OUTPUT"
@@ -117,4 +124,4 @@ jobs:
           IKOMIA_HUB_CI_DISCORD_WEBHOOK_ON_SUCCESS: ${{ steps.configure.outputs.run_webhook_on_success }}
           IKOMIA_HUB_CI_DISCORD_WEBHOOK_ON_FAILURE: ${{ steps.configure.outputs.run_webhook_on_failure }}
           IKOMIA_HUB_CI_PUSH_ON_SUCCESS: ${{ steps.configure.outputs.run_push_on_success }}
-          IKOMIA_HUB_CI_PYTHON: "3.10 3.11 3.12"  # Uncomment to change the python versions to test
+          # IKOMIA_HUB_CI_PYTHON: "auto"

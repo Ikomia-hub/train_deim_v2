@@ -15,7 +15,6 @@ from train_deim_v2.utils.ikutils import prepare_dataset
 from train_deim_v2.utils.load_model import resolve_config_and_weights, MODEL_MAPPING
 
 
-
 # --------------------
 # - Class to handle the algorithm parameters
 # - Inherits PyCore.CWorkflowTaskParam from Ikomia API
@@ -51,8 +50,7 @@ class TrainDeimV2Param(TaskParam):
         self.cfg["weight_decay"] = float(params["weight_decay"])
         self.cfg["lr"] = float(params["lr"])
         self.cfg["config_file"] = str(params["config_file"])
-        self.cfg["dataset_split_ratio"] = float(
-            params["dataset_split_ratio"])
+        self.cfg["dataset_split_ratio"] = float(params["dataset_split_ratio"])
         self.cfg["output_folder"] = str(params["output_folder"])
 
 
@@ -327,7 +325,7 @@ class TrainDeimV2Factory(dataprocess.CTaskFactory):  # type: ignore[attr-defined
         self.info.short_description = "Train DEIMv2: Real-Time Object Detection Meets DINOv3"
         # relative path -> as displayed in Ikomia Studio algorithm tree
         self.info.path = "Plugins/Python/Detection"
-        self.info.version = "1.0.1"
+        self.info.version = "1.1.0"
         self.info.icon_path = "images/icon.png"
         self.info.authors = "Huang, Shihua and Hou, Yongjie and Liu, Longfei and Yu, " \
                             "Xuanlong and Shen, Xi"
@@ -337,7 +335,7 @@ class TrainDeimV2Factory(dataprocess.CTaskFactory):  # type: ignore[attr-defined
         self.info.license = "Apache 2.0"
 
         # Ikomia API compatibility
-        self.info.min_ikomia_version = "0.15.0"
+        self.info.min_ikomia_version = "0.16.0"
 
         # Python compatibility
         self.info.min_python_version = "3.10.0"
